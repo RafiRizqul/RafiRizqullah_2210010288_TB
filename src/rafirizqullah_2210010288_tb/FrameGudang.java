@@ -9,6 +9,15 @@ package rafirizqullah_2210010288_tb;
  *
  * @author ACER
  */
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.io.FileOutputStream;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+
 public class FrameGudang extends javax.swing.JFrame {
 
     /**
@@ -16,6 +25,7 @@ public class FrameGudang extends javax.swing.JFrame {
      */
     public FrameGudang() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -48,29 +58,47 @@ public class FrameGudang extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         gridBagConstraints.insets = new java.awt.Insets(8, 6, 8, 6);
         jPanel1.add(jButton1, gridBagConstraints);
 
         jButton2.setText("MasterSupplier");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         gridBagConstraints.insets = new java.awt.Insets(8, 6, 8, 6);
         jPanel1.add(jButton2, gridBagConstraints);
 
         jButton3.setText("TransaksiBarangMasuk");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(8, 6, 8, 6);
         jPanel1.add(jButton3, gridBagConstraints);
 
         jButton4.setText("Laporan Barang Masuk");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 5;
@@ -78,6 +106,11 @@ public class FrameGudang extends javax.swing.JFrame {
         jPanel1.add(jButton4, gridBagConstraints);
 
         jButton5.setText("Laporan Barang");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 5;
@@ -90,8 +123,91 @@ public class FrameGudang extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-new FrameMasterBarang().show();        // TODO add your handling code here:
+        new FrameMasterBarang().show();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        new FrameMasterSupplier().show();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        new FrameTransaksiBarangMasuk().setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        cetakLaporanBarangMasuk();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        cetakLaporanBarang();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void cetakLaporanBarangMasuk() {
+        // Menentukan lokasi file PDF
+        String filePath = "LaporanBarangMasuk.pdf";
+
+        // Membuat dokumen PDF baru
+        Document document = new Document();
+        try {
+            // Menulis ke file PDF
+            PdfWriter.getInstance(document, new FileOutputStream(filePath));
+
+            // Membuka dokumen untuk menambahkan konten
+            document.open();
+
+            // Menambahkan judul laporan
+            Paragraph title = new Paragraph("Laporan Barang Masuk", FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18));
+            title.setAlignment(Element.ALIGN_CENTER);
+            document.add(title);
+
+            // Menambahkan spasi
+            document.add(Chunk.NEWLINE);
+
+            // Membuat tabel untuk menampilkan data
+            PdfPTable table = new PdfPTable(5); // 5 kolom: ID Transaksi, Tanggal, Barang, Supplier, Jumlah Masuk
+            table.setWidthPercentage(100);
+
+            // Menambahkan header tabel
+            table.addCell("ID Transaksi");
+            table.addCell("Tanggal Transaksi");
+            table.addCell("Nama Barang");
+            table.addCell("Nama Supplier");
+            table.addCell("Jumlah Masuk");
+
+            // Mengambil data dari database
+            try (Connection conn = DatabaseHelper.getConnection()) {
+                String query = "SELECT t.id_transaksi, t.tanggal_transaksi, b.nama_barang, s.nama_supplier, t.jumlah_masuk "
+                        + "FROM transaksi_barang_masuk t "
+                        + "JOIN master_barang b ON t.id_barang = b.id_barang "
+                        + "JOIN master_supplier s ON t.id_supplier = s.id_supplier";
+                try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
+                    while (rs.next()) {
+                        // Menambahkan baris data ke tabel PDF
+                        table.addCell(String.valueOf(rs.getInt("id_transaksi")));
+                        table.addCell(rs.getDate("tanggal_transaksi").toString());
+                        table.addCell(rs.getString("nama_barang"));
+                        table.addCell(rs.getString("nama_supplier"));
+                        table.addCell(String.valueOf(rs.getInt("jumlah_masuk")));
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+            // Menambahkan tabel ke dokumen
+            document.add(table);
+
+            // Menutup dokumen PDF
+            document.close();
+
+            // Memberi tahu pengguna bahwa PDF telah dibuat
+            JOptionPane.showMessageDialog(this, "Laporan Barang Masuk berhasil dicetak dalam PDF", "Laporan Cetak", JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Gagal membuat laporan PDF: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -126,6 +242,70 @@ new FrameMasterBarang().show();        // TODO add your handling code here:
                 new FrameGudang().setVisible(true);
             }
         });
+    }
+
+    private void cetakLaporanBarang() {
+        // Menentukan lokasi file PDF
+        String filePath = "LaporanBarang.pdf";
+
+        // Membuat dokumen PDF baru
+        Document document = new Document();
+        try {
+            // Menulis ke file PDF
+            PdfWriter.getInstance(document, new FileOutputStream(filePath));
+
+            // Membuka dokumen untuk menambahkan konten
+            document.open();
+
+            // Menambahkan judul laporan
+            Paragraph title = new Paragraph("Laporan Barang", FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18));
+            title.setAlignment(Element.ALIGN_CENTER);
+            document.add(title);
+
+            // Menambahkan spasi
+            document.add(Chunk.NEWLINE);
+
+            // Membuat tabel untuk menampilkan data
+            PdfPTable table = new PdfPTable(5); // 5 kolom: ID Barang, Nama Barang, Kategori Barang, Stok Awal, Harga Satuan
+            table.setWidthPercentage(100);
+
+            // Menambahkan header tabel
+            table.addCell("ID Barang");
+            table.addCell("Nama Barang");
+            table.addCell("Kategori Barang");
+            table.addCell("Stok Awal");
+            table.addCell("Harga Satuan");
+
+            // Mengambil data dari database
+            try (Connection conn = DatabaseHelper.getConnection()) {
+                String query = "SELECT * FROM master_barang";
+                try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
+                    while (rs.next()) {
+                        // Menambahkan baris data ke tabel PDF
+                        table.addCell(String.valueOf(rs.getInt("id_barang")));
+                        table.addCell(rs.getString("nama_barang"));
+                        table.addCell(rs.getString("kategori_barang"));
+                        table.addCell(String.valueOf(rs.getInt("stok_awal")));
+                        table.addCell(String.valueOf(rs.getDouble("harga_satuan")));
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+            // Menambahkan tabel ke dokumen
+            document.add(table);
+
+            // Menutup dokumen PDF
+            document.close();
+
+            // Memberi tahu pengguna bahwa PDF telah dibuat
+            JOptionPane.showMessageDialog(this, "Laporan Barang berhasil dicetak dalam PDF", "Laporan Cetak", JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Gagal membuat laporan PDF: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

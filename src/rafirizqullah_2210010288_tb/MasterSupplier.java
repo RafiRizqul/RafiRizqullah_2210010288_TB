@@ -21,65 +21,118 @@ public class MasterSupplier {
     private String emailSupplier;
     private Date tanggalBergabung;
 
-    // Constructor, Getter, dan Setter
+    // Constructor tanpa parameter
     public MasterSupplier() {}
 
-    // Getters dan Setters
-    // ... (lengkapi dengan metode getter dan setter untuk semua atribut)
+    // Constructor dengan parameter
+    public MasterSupplier(int idSupplier, String namaSupplier, String alamatSupplier, String teleponSupplier, String emailSupplier, Date tanggalBergabung) {
+        this.idSupplier = idSupplier;
+        this.namaSupplier = namaSupplier;
+        this.alamatSupplier = alamatSupplier;
+        this.teleponSupplier = teleponSupplier;
+        this.emailSupplier = emailSupplier;
+        this.tanggalBergabung = tanggalBergabung;
+    }
 
-    // Method untuk menyimpan data
-    public void saveToDatabase(Connection conn) throws SQLException {
+    // Getter dan Setter
+    public int getIdSupplier() {
+        return idSupplier;
+    }
+
+    public void setIdSupplier(int idSupplier) {
+        this.idSupplier = idSupplier;
+    }
+
+    public String getNamaSupplier() {
+        return namaSupplier;
+    }
+
+    public void setNamaSupplier(String namaSupplier) {
+        this.namaSupplier = namaSupplier;
+    }
+
+    public String getAlamatSupplier() {
+        return alamatSupplier;
+    }
+
+    public void setAlamatSupplier(String alamatSupplier) {
+        this.alamatSupplier = alamatSupplier;
+    }
+
+    public String getTeleponSupplier() {
+        return teleponSupplier;
+    }
+
+    public void setTeleponSupplier(String teleponSupplier) {
+        this.teleponSupplier = teleponSupplier;
+    }
+
+    public String getEmailSupplier() {
+        return emailSupplier;
+    }
+
+    public void setEmailSupplier(String emailSupplier) {
+        this.emailSupplier = emailSupplier;
+    }
+
+    public Date getTanggalBergabung() {
+        return tanggalBergabung;
+    }
+
+    public void setTanggalBergabung(Date tanggalBergabung) {
+        this.tanggalBergabung = tanggalBergabung;
+    }
+
+    // Method untuk menyimpan data ke database
+    public void simpan(Connection conn) throws SQLException {
         String query = "INSERT INTO master_supplier (nama_supplier, alamat_supplier, telepon_supplier, email_supplier, tanggal_bergabung) VALUES (?, ?, ?, ?, ?)";
-        PreparedStatement stmt = conn.prepareStatement(query);
-        stmt.setString(1, namaSupplier);
-        stmt.setString(2, alamatSupplier);
-        stmt.setString(3, teleponSupplier);
-        stmt.setString(4, emailSupplier);
-        stmt.setDate(5, new java.sql.Date(tanggalBergabung.getTime()));
-        stmt.executeUpdate();
-        stmt.close();
-    }
-
-    // Method untuk mengambil data
-    public static MasterSupplier getById(Connection conn, int id) throws SQLException {
-        String query = "SELECT * FROM master_supplier WHERE id_supplier = ?";
-        PreparedStatement stmt = conn.prepareStatement(query);
-        stmt.setInt(1, id);
-        ResultSet rs = stmt.executeQuery();
-
-        MasterSupplier supplier = null;
-        if (rs.next()) {
-            supplier = new MasterSupplier();
-            supplier.idSupplier = rs.getInt("id_supplier");
-            supplier.namaSupplier = rs.getString("nama_supplier");
-            supplier.alamatSupplier = rs.getString("alamat_supplier");
-            supplier.teleponSupplier = rs.getString("telepon_supplier");
-            supplier.emailSupplier = rs.getString("email_supplier");
-            supplier.tanggalBergabung = rs.getDate("tanggal_bergabung");
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, this.namaSupplier);
+            stmt.setString(2, this.alamatSupplier);
+            stmt.setString(3, this.teleponSupplier);
+            stmt.setString(4, this.emailSupplier);
+            stmt.setDate(5, this.tanggalBergabung);
+            stmt.executeUpdate();
         }
-        rs.close();
-        stmt.close();
-        return supplier;
     }
+
+    // Method untuk mengambil semua data dari tabel
     public static List<MasterSupplier> getAll(Connection conn) throws SQLException {
+        List<MasterSupplier> listSupplier = new ArrayList<>();
         String query = "SELECT * FROM master_supplier";
-        Statement stmt = conn.createStatement();
-        ResultSet rs = stmt.executeQuery(query);
 
-        List<MasterSupplier> list = new ArrayList<>();
-        while (rs.next()) {
-            MasterSupplier supplier = new MasterSupplier();
-            supplier.idSupplier = rs.getInt("id_supplier");
-            supplier.namaSupplier = rs.getString("nama_supplier");
-            supplier.alamatSupplier = rs.getString("alamat_supplier");
-            supplier.teleponSupplier = rs.getString("telepon_supplier");
-            supplier.emailSupplier = rs.getString("email_supplier");
-            supplier.tanggalBergabung = rs.getDate("tanggal_bergabung");
-            list.add(supplier);
+        try (Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(query)) {
+
+            while (rs.next()) {
+                MasterSupplier supplier = new MasterSupplier();
+                supplier.setIdSupplier(rs.getInt("id_supplier"));
+                supplier.setNamaSupplier(rs.getString("nama_supplier"));
+                supplier.setAlamatSupplier(rs.getString("alamat_supplier"));
+                supplier.setTeleponSupplier(rs.getString("telepon_supplier"));
+                supplier.setEmailSupplier(rs.getString("email_supplier"));
+                supplier.setTanggalBergabung(rs.getDate("tanggal_bergabung"));
+
+                listSupplier.add(supplier);
+            }
         }
-        rs.close();
-        stmt.close();
-        return list;
+        return listSupplier;
+    }
+
+    // Method untuk membuat tabel master_supplier jika belum ada
+    public static void createTable(Connection conn) throws SQLException {
+        String query = "CREATE TABLE IF NOT EXISTS master_supplier ("
+            + "id_supplier INT AUTO_INCREMENT PRIMARY KEY, "
+            + "nama_supplier VARCHAR(255) NOT NULL, "
+            + "alamat_supplier TEXT NOT NULL, "
+            + "telepon_supplier VARCHAR(50), "
+            + "email_supplier VARCHAR(100), "
+            + "tanggal_bergabung DATE NOT NULL"
+            + ")";
+
+        try (Statement stmt = conn.createStatement()) {
+            stmt.executeUpdate(query);
+            System.out.println("Tabel master_supplier berhasil dibuat (jika belum ada).");
+        }
     }
 }
-

@@ -15,12 +15,12 @@ import java.sql.Statement;
  *
  * @author ACER
  */
-public class FrameMasterBarang extends javax.swing.JFrame {
+public class FrameMasterSupplier extends javax.swing.JFrame {
 
     /**
      * Creates new form FrameMasterBarang
      */
-    public FrameMasterBarang() {
+    public FrameMasterSupplier() {
         initComponents();
         loadTableData();
         this.setLocationRelativeTo(null);
@@ -38,37 +38,30 @@ public class FrameMasterBarang extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTableBarang = new javax.swing.JTable();
+        jTableSupplier = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jTextFieldNamaBarang = new javax.swing.JTextField();
-        jTextFieldSatuan = new javax.swing.JTextField();
-        jSpinnerStokAwal = new javax.swing.JSpinner();
-        jSpinnerHargaSatuan = new javax.swing.JSpinner();
-        jDateChooserTanggalDitambahkan = new com.toedter.calendar.JDateChooser();
+        jTextFieldNamaSupplier = new javax.swing.JTextField();
+        jTextFieldEmailSupplier = new javax.swing.JTextField();
+        jDateChooserTanggalBergabung = new com.toedter.calendar.JDateChooser();
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jComboBoxJenisBarang = new javax.swing.JComboBox<>();
+        jTextFieldAlamatSupplier = new javax.swing.JTextField();
+        jTextFieldTeleponSupplier = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
         jScrollPane1.setPreferredSize(new java.awt.Dimension(500, 500));
-        jScrollPane1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jScrollPane1MouseClicked(evt);
-            }
-        });
 
-        jTableBarang.setModel(new javax.swing.table.DefaultTableModel(
+        jTableSupplier.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -76,30 +69,28 @@ public class FrameMasterBarang extends javax.swing.JFrame {
 
             }
         ));
-        jTableBarang.setPreferredSize(new java.awt.Dimension(500, 500));
-        jTableBarang.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTableSupplier.setPreferredSize(new java.awt.Dimension(500, 500));
+        jTableSupplier.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTableBarangMouseClicked(evt);
+                jTableSupplierMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTableBarang);
+        jScrollPane1.setViewportView(jTableSupplier);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 7;
         gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.weightx = 0.5;
-        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
         jPanel1.add(jScrollPane1, gridBagConstraints);
 
-        jLabel1.setText("Nama Barang");
+        jLabel1.setText("Nama Supplier");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         gridBagConstraints.weightx = 0.1;
         jPanel1.add(jLabel1, gridBagConstraints);
 
-        jLabel2.setText("Jenis Barang");
+        jLabel2.setText("Alamat Supplier");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -108,7 +99,7 @@ public class FrameMasterBarang extends javax.swing.JFrame {
         gridBagConstraints.weightx = 0.1;
         jPanel1.add(jLabel2, gridBagConstraints);
 
-        jLabel3.setText("Stok Awal");
+        jLabel3.setText("Telepon Supplier");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
@@ -117,7 +108,7 @@ public class FrameMasterBarang extends javax.swing.JFrame {
         gridBagConstraints.weightx = 0.1;
         jPanel1.add(jLabel3, gridBagConstraints);
 
-        jLabel4.setText("Satuan");
+        jLabel4.setText("Email Supplier");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
@@ -126,7 +117,7 @@ public class FrameMasterBarang extends javax.swing.JFrame {
         gridBagConstraints.weightx = 0.1;
         jPanel1.add(jLabel4, gridBagConstraints);
 
-        jLabel5.setText("Harga Satuan");
+        jLabel5.setText("Tanggal Bergabung");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
@@ -135,57 +126,30 @@ public class FrameMasterBarang extends javax.swing.JFrame {
         gridBagConstraints.weightx = 0.1;
         jPanel1.add(jLabel5, gridBagConstraints);
 
-        jLabel6.setText("Tanggal Ditambahkan");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
-        gridBagConstraints.weightx = 0.1;
-        jPanel1.add(jLabel6, gridBagConstraints);
-
-        jTextFieldNamaBarang.setPreferredSize(new java.awt.Dimension(150, 22));
+        jTextFieldNamaSupplier.setPreferredSize(new java.awt.Dimension(150, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.insets = new java.awt.Insets(6, 6, 6, 6);
-        jPanel1.add(jTextFieldNamaBarang, gridBagConstraints);
+        jPanel1.add(jTextFieldNamaSupplier, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.insets = new java.awt.Insets(6, 6, 6, 6);
-        jPanel1.add(jTextFieldSatuan, gridBagConstraints);
+        jPanel1.add(jTextFieldEmailSupplier, gridBagConstraints);
 
-        jSpinnerStokAwal.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(6, 6, 6, 6);
-        jPanel1.add(jSpinnerStokAwal, gridBagConstraints);
-
-        jSpinnerHargaSatuan.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, null, 10000.0d));
+        jDateChooserTanggalBergabung.setDate(new java.util.Date());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 4;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.insets = new java.awt.Insets(6, 6, 6, 6);
-        jPanel1.add(jSpinnerHargaSatuan, gridBagConstraints);
+        jPanel1.add(jDateChooserTanggalBergabung, gridBagConstraints);
 
-        jDateChooserTanggalDitambahkan.setDate(new java.util.Date());
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(6, 6, 6, 6);
-        jPanel1.add(jDateChooserTanggalDitambahkan, gridBagConstraints);
-
-        jButton1.setText("Buat Barang");
+        jButton1.setText("Buat Supplier");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -193,7 +157,7 @@ public class FrameMasterBarang extends javax.swing.JFrame {
         });
         jPanel2.add(jButton1);
 
-        jButton2.setText("Update Barang");
+        jButton2.setText("Update Supplier");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -201,7 +165,7 @@ public class FrameMasterBarang extends javax.swing.JFrame {
         });
         jPanel2.add(jButton2);
 
-        jButton3.setText("Hapus Barang");
+        jButton3.setText("Hapus Supplier");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -224,16 +188,23 @@ public class FrameMasterBarang extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         jPanel1.add(jPanel2, gridBagConstraints);
 
-        jComboBoxJenisBarang.setEditable(true);
-        jComboBoxJenisBarang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Elektronik", "Pecah Belah", "Pakaian" }));
-        jComboBoxJenisBarang.setSelectedIndex(-1);
+        jTextFieldAlamatSupplier.setPreferredSize(new java.awt.Dimension(150, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
-        jPanel1.add(jComboBoxJenisBarang, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(6, 6, 6, 6);
+        jPanel1.add(jTextFieldAlamatSupplier, gridBagConstraints);
+
+        jTextFieldTeleponSupplier.setPreferredSize(new java.awt.Dimension(150, 22));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(6, 6, 6, 6);
+        jPanel1.add(jTextFieldTeleponSupplier, gridBagConstraints);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
@@ -243,192 +214,186 @@ public class FrameMasterBarang extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             // Ambil data dari form
-            String namaBarang = jTextFieldNamaBarang.getText();
-            String jenisBarang = jComboBoxJenisBarang.getSelectedItem() != null
-                    ? jComboBoxJenisBarang.getSelectedItem().toString()
-                    : null;
-            int stokAwal = (int) jSpinnerStokAwal.getValue();
-            String satuan = jTextFieldSatuan.getText();
-            double hargaSatuan = (double) jSpinnerHargaSatuan.getValue();
-            java.util.Date tanggalDitambahkan = jDateChooserTanggalDitambahkan.getDate();
+            String namaSupplier = jTextFieldNamaSupplier.getText();
+            String alamatSupplier = jTextFieldAlamatSupplier.getText();
+            String teleponSupplier = jTextFieldTeleponSupplier.getText();
+            String emailSupplier = jTextFieldEmailSupplier.getText();
+            java.util.Date tanggalBergabung = jDateChooserTanggalBergabung.getDate();
 
             // Validasi input
-            if (namaBarang.isEmpty() || jenisBarang == null || satuan.isEmpty() || tanggalDitambahkan == null) {
+            if (namaSupplier.isEmpty() || alamatSupplier.isEmpty() || teleponSupplier.isEmpty() || emailSupplier.isEmpty() || tanggalBergabung == null) {
                 javax.swing.JOptionPane.showMessageDialog(this, "Harap lengkapi semua data!", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
             // Konversi tanggal ke java.sql.Date
-            java.sql.Date sqlTanggalDitambahkan = new java.sql.Date(tanggalDitambahkan.getTime());
-
-            // Buat objek MasterBarang
-            MasterBarang barang = new MasterBarang();
-            barang.setNamaBarang(namaBarang);
-            barang.setKategoriBarang(jenisBarang);
-            barang.setStokAwal(stokAwal);
-            barang.setSatuan(satuan);
-            barang.setHargaSatuan(hargaSatuan);
-            barang.setTanggalDitambahkan(sqlTanggalDitambahkan);
+            java.sql.Date sqlTanggalBergabung = new java.sql.Date(tanggalBergabung.getTime());
 
             // Simpan ke database
             try (Connection conn = DatabaseHelper.getConnection()) {
-                barang.simpan(conn);
-                javax.swing.JOptionPane.showMessageDialog(this, "Barang berhasil dibuat!", "Sukses", javax.swing.JOptionPane.INFORMATION_MESSAGE);
-                loadTableData();
+                String query = "INSERT INTO master_supplier (nama_supplier, alamat_supplier, telepon_supplier, email_supplier, tanggal_bergabung) VALUES (?, ?, ?, ?, ?)";
+                try (PreparedStatement stmt = conn.prepareStatement(query)) {
+                    stmt.setString(1, namaSupplier);
+                    stmt.setString(2, alamatSupplier);
+                    stmt.setString(3, teleponSupplier);
+                    stmt.setString(4, emailSupplier);
+                    stmt.setDate(5, sqlTanggalBergabung);
 
-                // Bersihkan form
-                jTextFieldNamaBarang.setText("");
-                jComboBoxJenisBarang.setSelectedIndex(-1);
-                jSpinnerStokAwal.setValue(0);
-                jTextFieldSatuan.setText("");
-                jSpinnerHargaSatuan.setValue(0.0);
-                jDateChooserTanggalDitambahkan.setDate(new java.util.Date());
+                    int rowsInserted = stmt.executeUpdate();
+                    if (rowsInserted > 0) {
+                        javax.swing.JOptionPane.showMessageDialog(this, "Supplier berhasil dibuat!", "Sukses", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+                        loadTableData();
+                    }
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
-            javax.swing.JOptionPane.showMessageDialog(this, "Gagal membuat barang: " + e.getMessage(), "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            javax.swing.JOptionPane.showMessageDialog(this, "Gagal membuat supplier: " + e.getMessage(), "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
             // Ambil baris yang dipilih di JTable
-            int selectedRow = jTableBarang.getSelectedRow();
+            int selectedRow = jTableSupplier.getSelectedRow();
             if (selectedRow == -1) {
-                javax.swing.JOptionPane.showMessageDialog(this, "Pilih barang yang ingin diupdate!", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+                javax.swing.JOptionPane.showMessageDialog(this, "Pilih supplier yang ingin diupdate!", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            // Ambil idBarang dari JTable
-            int idBarang = (int) jTableBarang.getValueAt(selectedRow, 0);
+            // Ambil idSupplier dari JTable
+            int idSupplier = (int) jTableSupplier.getValueAt(selectedRow, 0);
 
             // Ambil data dari form
-            String namaBarang = jTextFieldNamaBarang.getText();
-            String jenisBarang = jComboBoxJenisBarang.getSelectedItem() != null
-                    ? jComboBoxJenisBarang.getSelectedItem().toString()
-                    : null;
-            int stokAwal = (int) jSpinnerStokAwal.getValue();
-            String satuan = jTextFieldSatuan.getText();
-            double hargaSatuan = (double) jSpinnerHargaSatuan.getValue();
-            java.util.Date tanggalDitambahkan = jDateChooserTanggalDitambahkan.getDate();
+            String namaSupplier = jTextFieldNamaSupplier.getText();
+            String alamatSupplier = jTextFieldAlamatSupplier.getText();
+            String teleponSupplier = jTextFieldTeleponSupplier.getText();
+            String emailSupplier = jTextFieldEmailSupplier.getText();
+            java.util.Date tanggalBergabung = jDateChooserTanggalBergabung.getDate();
 
             // Validasi input
-            if (namaBarang.isEmpty() || jenisBarang == null || satuan.isEmpty() || tanggalDitambahkan == null) {
+            if (namaSupplier.isEmpty() || alamatSupplier.isEmpty() || teleponSupplier.isEmpty() || emailSupplier.isEmpty() || tanggalBergabung == null) {
                 javax.swing.JOptionPane.showMessageDialog(this, "Harap lengkapi semua data!", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
             // Konversi tanggal ke java.sql.Date
-            java.sql.Date sqlTanggalDitambahkan = new java.sql.Date(tanggalDitambahkan.getTime());
+            java.sql.Date sqlTanggalBergabung = new java.sql.Date(tanggalBergabung.getTime());
 
             // Update data di database
             try (Connection conn = DatabaseHelper.getConnection()) {
-                String query = "UPDATE master_barang SET nama_barang = ?, kategori_barang = ?, stok_awal = ?, satuan = ?, harga_satuan = ?, tanggal_ditambahkan = ? WHERE id_barang = ?";
+                String query = "UPDATE master_supplier SET nama_supplier = ?, alamat_supplier = ?, telepon_supplier = ?, email_supplier = ?, tanggal_bergabung = ? WHERE id_supplier = ?";
                 try (PreparedStatement stmt = conn.prepareStatement(query)) {
-                    stmt.setString(1, namaBarang);
-                    stmt.setString(2, jenisBarang);
-                    stmt.setInt(3, stokAwal);
-                    stmt.setString(4, satuan);
-                    stmt.setDouble(5, hargaSatuan);
-                    stmt.setDate(6, sqlTanggalDitambahkan);
-                    stmt.setInt(7, idBarang);
+                    stmt.setString(1, namaSupplier);
+                    stmt.setString(2, alamatSupplier);
+                    stmt.setString(3, teleponSupplier);
+                    stmt.setString(4, emailSupplier);
+                    stmt.setDate(5, sqlTanggalBergabung);
+                    stmt.setInt(6, idSupplier);
 
                     int rowsUpdated = stmt.executeUpdate();
                     if (rowsUpdated > 0) {
-                        javax.swing.JOptionPane.showMessageDialog(this, "Barang berhasil diupdate!", "Sukses", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+                        javax.swing.JOptionPane.showMessageDialog(this, "Supplier berhasil diupdate!", "Sukses", javax.swing.JOptionPane.INFORMATION_MESSAGE);
                         loadTableData(); // Refresh tabel
                     } else {
-                        javax.swing.JOptionPane.showMessageDialog(this, "Barang tidak ditemukan atau gagal diupdate!", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+                        javax.swing.JOptionPane.showMessageDialog(this, "Supplier tidak ditemukan atau gagal diupdate!", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
                     }
                 }
             }
 
-            // Bersihkan semua input form
-            jTextFieldNamaBarang.setText("");
-            jComboBoxJenisBarang.setSelectedIndex(-1); // Reset combo box ke posisi awal
-            jSpinnerStokAwal.setValue(0); // Reset spinner ke nilai awal
-            jTextFieldSatuan.setText("");
-            jSpinnerHargaSatuan.setValue(0.0); // Reset spinner ke nilai awal
-            jDateChooserTanggalDitambahkan.setDate(new java.util.Date()); // Set tanggal ke hari ini
+            // Mengosongkan semua field input
+            jTextFieldNamaSupplier.setText("");
+            jTextFieldAlamatSupplier.setText("");
+            jTextFieldTeleponSupplier.setText("");
+            jTextFieldEmailSupplier.setText("");
+            jDateChooserTanggalBergabung.setDate(null);
+
+            // Menghapus selection di JTable
+            jTableSupplier.clearSelection();
         } catch (Exception e) {
             e.printStackTrace();
-            javax.swing.JOptionPane.showMessageDialog(this, "Gagal mengupdate barang: " + e.getMessage(), "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            javax.swing.JOptionPane.showMessageDialog(this, "Gagal mengupdate supplier: " + e.getMessage(), "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         try {
             // Ambil baris yang dipilih di JTable
-            int selectedRow = jTableBarang.getSelectedRow();
+            int selectedRow = jTableSupplier.getSelectedRow();
             if (selectedRow == -1) {
-                javax.swing.JOptionPane.showMessageDialog(this, "Pilih barang yang ingin dihapus!", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+                javax.swing.JOptionPane.showMessageDialog(this, "Pilih supplier yang ingin dihapus!", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
             // Konfirmasi penghapusan
-            int confirm = javax.swing.JOptionPane.showConfirmDialog(this, "Apakah Anda yakin ingin menghapus barang ini?", "Konfirmasi", javax.swing.JOptionPane.YES_NO_OPTION);
+            int confirm = javax.swing.JOptionPane.showConfirmDialog(this, "Apakah Anda yakin ingin menghapus supplier ini?", "Konfirmasi", javax.swing.JOptionPane.YES_NO_OPTION);
             if (confirm != javax.swing.JOptionPane.YES_OPTION) {
                 return;
             }
 
-            // Ambil idBarang dari JTable
-            int idBarang = (int) jTableBarang.getValueAt(selectedRow, 0);
+            // Ambil idSupplier dari JTable
+            int idSupplier = (int) jTableSupplier.getValueAt(selectedRow, 0);
 
             // Hapus data dari database
             try (Connection conn = DatabaseHelper.getConnection()) {
-                String query = "DELETE FROM master_barang WHERE id_barang = ?";
+                String query = "DELETE FROM master_supplier WHERE id_supplier = ?";
                 try (PreparedStatement stmt = conn.prepareStatement(query)) {
-                    stmt.setInt(1, idBarang);
+                    stmt.setInt(1, idSupplier);
 
                     int rowsDeleted = stmt.executeUpdate();
                     if (rowsDeleted > 0) {
-                        javax.swing.JOptionPane.showMessageDialog(this, "Barang berhasil dihapus!", "Sukses", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+                        javax.swing.JOptionPane.showMessageDialog(this, "Supplier berhasil dihapus!", "Sukses", javax.swing.JOptionPane.INFORMATION_MESSAGE);
                         loadTableData(); // Refresh tabel
                     } else {
-                        javax.swing.JOptionPane.showMessageDialog(this, "Barang tidak ditemukan atau gagal dihapus!", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+                        javax.swing.JOptionPane.showMessageDialog(this, "Supplier tidak ditemukan atau gagal dihapus!", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
                     }
                 }
             }
 
-            // Bersihkan semua input form
-            jTextFieldNamaBarang.setText("");
-            jComboBoxJenisBarang.setSelectedIndex(-1); // Reset combo box ke posisi awal
-            jSpinnerStokAwal.setValue(0); // Reset spinner ke nilai awal
-            jTextFieldSatuan.setText("");
-            jSpinnerHargaSatuan.setValue(0.0); // Reset spinner ke nilai awal
-            jDateChooserTanggalDitambahkan.setDate(new java.util.Date()); // Set tanggal ke hari ini
+            // Mengosongkan semua field input
+            jTextFieldNamaSupplier.setText("");
+            jTextFieldAlamatSupplier.setText("");
+            jTextFieldTeleponSupplier.setText("");
+            jTextFieldEmailSupplier.setText("");
+            jDateChooserTanggalBergabung.setDate(null);
+
+            // Menghapus selection di JTable
+            jTableSupplier.clearSelection();
         } catch (Exception e) {
             e.printStackTrace();
-            javax.swing.JOptionPane.showMessageDialog(this, "Gagal menghapus barang: " + e.getMessage(), "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            javax.swing.JOptionPane.showMessageDialog(this, "Gagal menghapus supplier: " + e.getMessage(), "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // Bersihkan semua input form
-        jTextFieldNamaBarang.setText("");
-        jComboBoxJenisBarang.setSelectedIndex(-1); // Reset combo box ke posisi awal
-        jSpinnerStokAwal.setValue(0); // Reset spinner ke nilai awal
-        jTextFieldSatuan.setText("");
-        jSpinnerHargaSatuan.setValue(0.0); // Reset spinner ke nilai awal
-        jDateChooserTanggalDitambahkan.setDate(new java.util.Date()); // Set tanggal ke hari ini
+        // Mengosongkan semua field input
+        jTextFieldNamaSupplier.setText("");
+        jTextFieldAlamatSupplier.setText("");
+        jTextFieldTeleponSupplier.setText("");
+        jTextFieldEmailSupplier.setText("");
+        jDateChooserTanggalBergabung.setDate(null);
+
+        // Menghapus selection di JTable
+        jTableSupplier.clearSelection();
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jScrollPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jScrollPane1MouseClicked
+    private void jTableSupplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableSupplierMouseClicked
+// Ambil baris yang dipilih
+        int selectedRow = jTableSupplier.getSelectedRow();
 
-    private void jTableBarangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableBarangMouseClicked
-        int selectedRow = jTableBarang.getSelectedRow();
+        // Pastikan ada baris yang dipilih
         if (selectedRow != -1) {
-            // Retrieve the data from the selected row and populate the input fields
-            jTextFieldNamaBarang.setText(jTableBarang.getValueAt(selectedRow, 1).toString());
-            jComboBoxJenisBarang.setSelectedItem(jTableBarang.getValueAt(selectedRow, 2).toString());
-            jSpinnerStokAwal.setValue(jTableBarang.getValueAt(selectedRow, 3));
-            jTextFieldSatuan.setText(jTableBarang.getValueAt(selectedRow, 4).toString());
-            jSpinnerHargaSatuan.setValue(jTableBarang.getValueAt(selectedRow, 5));
-            jDateChooserTanggalDitambahkan.setDate((java.util.Date) jTableBarang.getValueAt(selectedRow, 6));
+            // Ambil data dari JTable dan set ke input form
+            jTextFieldNamaSupplier.setText(jTableSupplier.getValueAt(selectedRow, 1).toString());
+            jTextFieldAlamatSupplier.setText(jTableSupplier.getValueAt(selectedRow, 2).toString());
+            jTextFieldTeleponSupplier.setText(jTableSupplier.getValueAt(selectedRow, 3).toString());
+            jTextFieldEmailSupplier.setText(jTableSupplier.getValueAt(selectedRow, 4).toString());
+
+            // Set tanggal bergabung (kolom ke-5 di tabel)
+            java.sql.Date sqlDate = (java.sql.Date) jTableSupplier.getValueAt(selectedRow, 5);
+            jDateChooserTanggalBergabung.setDate(sqlDate);
         }        // TODO add your handling code here:
-    }//GEN-LAST:event_jTableBarangMouseClicked
+    }//GEN-LAST:event_jTableSupplierMouseClicked
 
     /**
      * @param args the command line arguments
@@ -447,41 +412,38 @@ public class FrameMasterBarang extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrameMasterBarang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrameMasterSupplier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrameMasterBarang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrameMasterSupplier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrameMasterBarang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrameMasterSupplier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrameMasterBarang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrameMasterSupplier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrameMasterBarang().setVisible(true);
+                new FrameMasterSupplier().setVisible(true);
             }
         });
     }
 
     private void loadTableData() {
         try (Connection conn = DatabaseHelper.getConnection()) {
-            String query = "SELECT * FROM master_barang";
+            String query = "SELECT * FROM master_supplier";
             try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
-                // Ambil metadata untuk membuat kolom tabel secara dinamis
                 ResultSetMetaData metaData = rs.getMetaData();
                 int columnCount = metaData.getColumnCount();
 
-                // Buat model tabel
                 javax.swing.table.DefaultTableModel tableModel = new javax.swing.table.DefaultTableModel();
 
-                // Tambahkan kolom ke model tabel
                 for (int i = 1; i <= columnCount; i++) {
                     tableModel.addColumn(metaData.getColumnLabel(i));
                 }
 
-                // Tambahkan baris ke model tabel
                 while (rs.next()) {
                     Object[] row = new Object[columnCount];
                     for (int i = 0; i < columnCount; i++) {
@@ -490,8 +452,7 @@ public class FrameMasterBarang extends javax.swing.JFrame {
                     tableModel.addRow(row);
                 }
 
-                // Set model tabel ke JTable
-                jTableBarang.setModel(tableModel);
+                jTableSupplier.setModel(tableModel);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -505,21 +466,19 @@ public class FrameMasterBarang extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox<String> jComboBoxJenisBarang;
-    private com.toedter.calendar.JDateChooser jDateChooserTanggalDitambahkan;
+    private com.toedter.calendar.JDateChooser jDateChooserTanggalBergabung;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSpinner jSpinnerHargaSatuan;
-    private javax.swing.JSpinner jSpinnerStokAwal;
-    private javax.swing.JTable jTableBarang;
-    private javax.swing.JTextField jTextFieldNamaBarang;
-    private javax.swing.JTextField jTextFieldSatuan;
+    private javax.swing.JTable jTableSupplier;
+    private javax.swing.JTextField jTextFieldAlamatSupplier;
+    private javax.swing.JTextField jTextFieldEmailSupplier;
+    private javax.swing.JTextField jTextFieldNamaSupplier;
+    private javax.swing.JTextField jTextFieldTeleponSupplier;
     // End of variables declaration//GEN-END:variables
 }
